@@ -95,6 +95,18 @@
             color: #047857;
         }
 
+        .error {
+            background-color: #fef2f2;
+            color: #dc2626;
+            border: 2px solid #fecaca;
+        }
+
+        .confidence {
+            font-size: 0.9rem;
+            margin-top: 8px;
+            opacity: 0.8;
+        }
+
         footer {
             margin-top: 30px;
             font-size: 0.8rem;
@@ -114,9 +126,16 @@
             <button type="submit">🎯 Check Message</button>
         </form>
 
-        {% if prediction %}
+        {% if error %}
+            <div class="result error">
+                {{ error }}
+            </div>
+        {% elif prediction %}
             <div class="result {{ 'phishing' if 'Phishing' in prediction else 'legit' }}">
                 {{ prediction }}
+                {% if confidence %}
+                    <div class="confidence">Confidence: {{ confidence }}</div>
+                {% endif %}
             </div>
         {% endif %}
 
